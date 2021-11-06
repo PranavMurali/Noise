@@ -8,13 +8,13 @@ import tw from 'tailwind-react-native-classnames'
 const data=[
     {
         id:"123",
-        title:"Hello",
+        title:"Home",
         image:"https://i.imgur.com/2kr3TIL.jpeg",
         screen:"Camera",
     },
     {
         id:"234",
-        title:"There",
+        title:"Settings",
         image:"https://i.imgur.com/2kr3TIL.jpeg",
         screen:"Settings",
     }

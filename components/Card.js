@@ -1,18 +1,42 @@
-import React from 'react'
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { Platform, Text, View, StyleSheet ,SafeAreaView} from 'react-native';
 import tw from 'tailwind-react-native-classnames'
-
+import * as Location from 'expo-location';
 const Card = () => {
-    return (
-        <SafeAreaView style ={tw`bg-gray-300 `}>
-            <Text style={tw` text-center py-5 text-xl`}>Card</Text>
-            <View style={tw` border-t border-gray-200 flex-shrink`}>
-                <View>
-                    <Text style={tw` text-center py-5 text-xl`}>Card</Text>
-                </View>
-            </View>
-        </SafeAreaView>
-    )
+    const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  let lats = 'Waiting..';
+  let longs = 'Waiting..';
+  if (errorMsg) {
+    lats= errorMsg;
+    longs =errorMsg;
+  } else if (location) {
+    lats = JSON.stringify(location.coords.latitude);
+    longs = JSON.stringify(location.coords.longitude);
+  }
+
+  return (
+    <View >
+      <Text style={tw`text-white`}>Latitude: {lats}</Text>
+      <Text style={tw`text-white`}>Longitude: {longs}</Text>
+    </View>
+  );
 }
 
 export default Card
+
+

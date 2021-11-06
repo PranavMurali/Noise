@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
+import tw from 'tailwind-react-native-classnames'
+import {Icon} from 'react-native-elements'
+import { useNavigation } from '@react-navigation/core'
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
-
+  const navigation=useNavigation();
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -21,6 +24,13 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
+      <View>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={tw`bg-gray-100 absolute top-16 left-8 z-50 p-3 rounded-full shadow-lg`}>
+                <Icon name="menu" type="material-community" color="#000" size={30} />
+            </TouchableOpacity>
+        </View>
       <Camera style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
