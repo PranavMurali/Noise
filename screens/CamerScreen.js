@@ -5,10 +5,30 @@ import tw from 'tailwind-react-native-classnames'
 import {Icon} from 'react-native-elements'
 import { useNavigation } from '@react-navigation/core'
 import { Platform } from 'react-native';
-
-
 import * as tf from "@tensorflow/tfjs";
 import { cameraWithTensors } from '@tensorflow/tfjs-react-native';
+import {bundleResourceIO } from '@tensorflow/tfjs-react-native';
+const modelJSON = require("../assets/model.json");
+const modelWeights = require("../assets/group1-shard.bin");
+
+
+// Load the model from the models folder
+const loadModel = async () => {
+  const model = await tf
+    .loadLayersModel(bundleResourceIO(modelJSON, modelWeights))
+    .catch(e => console.log(e));
+  console.log("Model loaded!");
+
+  try {
+    await tf.ready();
+  } catch (error) {
+    console.log(error.message);
+  }
+  console.log("Tensorflow ready!");
+  console.log(model);
+};
+
+
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -23,11 +43,12 @@ export default function App() {
   }, []);
 
   if (hasPermission === null) {
-    return <View />;
+    return <Text>camera</Text>;
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+  loadModel();
   return (
     <View style={styles.container}>
       <View>
@@ -40,7 +61,7 @@ export default function App() {
         <TensorCamera 
             style={styles.camera} 
             type={Camera.Constants.Type.back}
-            onReady={() => {}}
+            // onReady={() => {}}
             resizeHeight={200}
             resizeWidth={152}
             resizeDepth={3}
