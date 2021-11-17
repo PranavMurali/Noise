@@ -4,11 +4,17 @@ import { Camera } from 'expo-camera';
 import tw from 'tailwind-react-native-classnames'
 import {Icon} from 'react-native-elements'
 import { useNavigation } from '@react-navigation/core'
+import { Platform } from 'react-native';
+
+
+import * as tf from "@tensorflow/tfjs";
+import { cameraWithTensors } from '@tensorflow/tfjs-react-native';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const navigation=useNavigation();
+  const TensorCamera = cameraWithTensors(Camera);
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -31,24 +37,31 @@ export default function App() {
                 <Icon name="menu" type="material-community" color="#000" size={30} />
             </TouchableOpacity>
         </View>
-      <Camera style={styles.camera} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+        <TensorCamera 
+            style={styles.camera} 
+            type={Camera.Constants.Type.back}
+            onReady={() => {}}
+            resizeHeight={200}
+            resizeWidth={152}
+            resizeDepth={3}
+            autorender={true}
+            cameraTextureHeight={textureDims.height}
+            cameraTextureWidth={textureDims.width}
+        />
     </View>
   );
 }
+
+const textureDims = Platform.OS === 'ios' ?
+{
+  height: 1920,
+  width: 1080,
+} :
+{
+  height: 1200,
+  width: 1600,
+};
+
 
 const styles = StyleSheet.create({
   container: {
