@@ -41,7 +41,8 @@
     "react-navigation": "^4.4.4",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
-    "tailwind-react-native-classnames": "^1.5.1"
+    "tailwind-react-native-classnames": "^1.5.1",
+    "tflite-react-native": "^0.0.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

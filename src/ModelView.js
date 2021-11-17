@@ -8,6 +8,9 @@ import { LoadingView } from './LoadingView';
 import { PredictionList } from './PredictionList';
 import { useTensorFlowModel } from './useTensorFlow';
 
+
+import Tflite from 'tflite-react-native';
+
 export function ModelView() {
   const model = useTensorFlowModel(mobilenet);
   const [predictions, setPredictions] = React.useState([]);
