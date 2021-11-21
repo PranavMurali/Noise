@@ -5,7 +5,7 @@ module.exports = (async () => {
   return {
     resolver: {
       // Add bin to assetExts
-      assetExts: [...assetExts, 'bin', 'tflite'],
+      assetExts: [...assetExts, 'bin', 'tflite', 'ttf'],
       noCompress : 'tflite',
     }
     

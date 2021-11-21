@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet ,SafeAreaView} from 'react-native';
-import tw from 'tailwind-react-native-classnames'
+import {Text, View} from 'react-native';
+import tw from 'tailwind-react-native-classnames';
 import * as Location from 'expo-location';
-const Card = () => {
-    const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
 
+const Card = () => {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -30,8 +30,8 @@ const Card = () => {
   }
 
   return (
-    <View >
-      <Text style={tw`text-white`}>Latitude: {lats}</Text>
+    <View style={tw`p-2 pl-20 pb-8 pt-4 bg-gray-500 m-2 w-90 rounded-lg`}>
+      <Text style={tw`font-sans text-white`}>Latitude: {lats}</Text>
       <Text style={tw`text-white`}>Longitude: {longs}</Text>
     </View>
   );

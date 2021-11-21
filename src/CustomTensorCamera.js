@@ -7,9 +7,7 @@ import { useNavigation } from '@react-navigation/core'
 import React from 'react';
 
 const TEXTURE_SIZE = { width: 1080, height: 1920 };
-
 const TENSOR_WIDTH = 152;
-
 const CAMERA_RATIO = TEXTURE_SIZE.height / TEXTURE_SIZE.width;
 
 const TENSOR_SIZE = {
