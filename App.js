@@ -11,8 +11,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 import tw from "tailwind-react-native-classnames"
 import Settings from './screens/Settings';
+import { useKeepAwake } from 'expo-keep-awake';
 
 export default function App() {
+  useKeepAwake();
   return (
     <Provider store={store}>
       <NavigationContainer>

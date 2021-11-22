@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     bottom: margin,
     left: margin,
     right: margin,
-    backgroundColor: "rgba(255,255,255,0.8)",
+    backgroundColor: "rgba(38, 38, 38,0.9)",
     padding: 8,
     borderRadius: 20,
     alignItems: "center",
@@ -30,5 +30,6 @@ const styles = StyleSheet.create({
   text: {
     paddingVertical: 2,
     fontSize: 20,
+    color: "white",
   },
 });
