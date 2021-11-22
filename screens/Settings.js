@@ -1,14 +1,32 @@
-import React from 'react'
-import { StyleSheet, Text, View ,TouchableOpacity,SafeAreaView} from 'react-native'
-import tw from 'tailwind-react-native-classnames'
-import {Icon} from 'react-native-elements'
-import { useNavigation } from '@react-navigation/core'
-
+import tw from 'tailwind-react-native-classnames';
+import { Icon } from 'react-native-elements';
+import { useNavigation} from '@react-navigation/core';
+import React, {useEffect,useState} from 'react';
+import { View, Button,Text, TouchableOpacity,SafeAreaView} from 'react-native';
+import * as Speech from 'expo-speech';
+import SearchableDropdown from 'react-native-searchable-dropdown';
 
 const Settings = () => {
-    const navigation=useNavigation();
-    return (
-        <SafeAreaView style={tw`bg-black h-full`}>
+    const [prompt, setPrompt] = useState(null);
+    const [voices, setVoices] = useState([]);
+    const navigation = useNavigation();
+    
+    const getvoices = async () => {
+      try {
+        let response =await Speech.getAvailableVoicesAsync()
+        setVoices(response);
+      } catch (error) {
+        console.log("Oh nuu" ,error);
+      } 
+      };
+
+    const speak = () => {
+        Speech.speak(prompt);
+      };
+      getvoices();
+      return (
+        <SafeAreaView>
+        <View style={tw`bg-black h-full`}>
         <View>
             <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
@@ -16,17 +34,39 @@ const Settings = () => {
                 <Icon name="menu" type="material-community" color="#000" size={30} />
             </TouchableOpacity>
         </View>
-        <View style ={tw`bg-gray-300 mt-20`}>
-            <Text style={tw` text-center py-5 text-xl`}>Voice Settings</Text>
-            <View style={tw` border-t border-gray-200 flex-shrink`}>
-                <View>
-                    <Text style={tw` text-center py-5 text-xl`}>Location Settings</Text>
-                </View>
-            </View>
+          <SearchableDropdown
+          onTextChange={(text) => console.log(text)}
+          onItemSelect={(item) => alert(JSON.stringify(item))}
+          containerStyle={{ padding: 5, margin: 100}}
+          textInputStyle={{
+            padding: 12,
+            borderWidth: 1,
+            borderColor: '#ccc',
+            backgroundColor: '#FFFFFF',
+          }}
+          itemStyle={{
+            padding: 10,
+            marginTop: 2,
+            backgroundColor: '#FFFFFF',
+            borderColor: '#bbb',
+            borderWidth: 1,
+          }}
+          itemTextStyle={
+            { color: '#290' }
+          }
+          itemsContainerStyle={{
+            maxHeight: '60%',
+          }}
+          items={voices.map(item=> ({id:item.identifier,name:item.language}))}
+          defaultIndex={2}
+          placeholder="placeholder"
+          resetValue={false}
+          underlineColorAndroid="transparent"
+        />
+
         </View>
         </SafeAreaView>
-    )
+      );
 }
 
-export default Settings
-
+export default Settings;

@@ -14,7 +14,7 @@ const Card = () => {
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       setIsConnected(
-        `Is connected?: ${state.isConnected}`
+        `Connected: ${state.isConnected}`
       );
       setType(
       state.type,
