@@ -27,6 +27,7 @@
     "expo-keep-awake": "~9.2.0",
     "expo-location": "~12.1.2",
     "expo-network": "~3.2.0",
+    "expo-permissions": "~12.1.1",
     "expo-speech": "~9.2.0",
     "expo-status-bar": "~1.0.4",
     "jpeg-js": "^0.4.3",

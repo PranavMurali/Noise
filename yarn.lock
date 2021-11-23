@@ -4384,6 +4384,13 @@ expo-network@~3.2.0:
   resolved "https://registry.yarnpkg.com/expo-network/-/expo-network-3.2.0.tgz#3329d37e9b4f5fbfc158e8fc7f3d440331bdcd35"
   integrity sha512-a1nwP3mwYLQmOiUUG3wmSn7auWy7pXCjqriu4+QsH3Fhkcr9OA0XnPSMEDiDM5rQeuZq//q+JndKCHRYzV6YKw==
 
+expo-permissions@~12.1.1:
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-12.1.1.tgz#93fd8569d4106ff9dd66d67619cb69a0aa895482"
+  integrity sha512-fHBB4A/aWMcvdmDY79gpgQt0ufKG8F1gwTgO3+RjjudVe5kovNy5TeXdHrCa0MksFVKjktqLjJrgiBITJXjg+g==
+  dependencies:
+    expo-modules-core "~0.2.0"
+
 expo-speech@~9.2.0:
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/expo-speech/-/expo-speech-9.2.1.tgz#cc13e6c8d0463d7899c220f2bab858939969da5d"
