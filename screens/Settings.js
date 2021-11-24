@@ -1,7 +1,7 @@
 import tw from 'tailwind-react-native-classnames';
 import { Icon } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/core';
-import React, {useEffect,useState} from 'react';
+import React, {useState} from 'react';
 import { View, Button, TouchableOpacity,SafeAreaView, TextInput,Text} from 'react-native';
 import Slider from '@react-native-community/slider';
 import * as Speech from 'expo-speech';
@@ -13,12 +13,11 @@ const Settings = () => {
     const [activeVoice, setActiveVoice] = useState(null);
     const [pitch, setPitch] = useState(1);
     const [rate, setRate] = useState(1);
-    const [volume, setVolume] = useState(1);
     const navigation = useNavigation();
     
     const getvoices = async () => {
       try {
-        let response =await Speech.getAvailableVoicesAsync()
+        let response =await Speech.getAvailableVoicesAsync();
         setVoices(response);
       } catch (error) {
         console.log("Oh nuu" ,error);
@@ -41,6 +40,7 @@ const Settings = () => {
             </TouchableOpacity>
         </View>
         <Text style={tw`text-white text-center mt-40`}>Choose the language/Accent of voice</Text>
+        <Text style={tw`text-white text-center`}>{activeVoice}</Text>
         <SearchableDropdown
             onItemSelect={(item) => setActiveVoice(item.name)}
             containerStyle={{ padding: 5 ,marginTop:20}}
@@ -77,23 +77,23 @@ const Settings = () => {
               }
             }
         />
-        <Text style={tw`text-white text-center mt-2`}>Choose the pitch of the voice</Text>
+        <Text style={tw`text-white text-center mt-2`}>Pitch of the voice</Text>
         <Text style={tw`text-white text-center`}>{pitch}</Text>
         <Slider
             style={{width: 400, height: 40,marginTop:30 ,backgroundColor:'#fff'}}
             minimumValue={1}
-            maximumValue={10}
+            maximumValue={3}
             minimumTrackTintColor="#333333"
             maximumTrackTintColor="#0d0d0d"
             onValueChange={value => setPitch(value)}
-            step={1}
+            step={0.1}
           />
 
-        <Text style={tw`text-white text-center mt-2`}>Choose the rate of the voice</Text>
+        <Text style={tw`text-white text-center mt-2`}>Rate of the voice</Text>
         <Text style={tw`text-white text-center`}>{rate}</Text>
         <Slider
             style={{width: 400, height: 40,marginTop:30 ,backgroundColor:'#fff'}}
-            minimumValue={0}
+            minimumValue={1}
             maximumValue={2}
             minimumTrackTintColor="#333333"
             maximumTrackTintColor="#0d0d0d"
