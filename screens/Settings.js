@@ -2,7 +2,8 @@ import tw from 'tailwind-react-native-classnames';
 import { Icon } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/core';
 import React, {useEffect,useState} from 'react';
-import { View, Button, TouchableOpacity,SafeAreaView, TextInput} from 'react-native';
+import { View, Button, TouchableOpacity,SafeAreaView, TextInput,Text} from 'react-native';
+import Slider from '@react-native-community/slider';
 import * as Speech from 'expo-speech';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 
@@ -10,6 +11,9 @@ const Settings = () => {
     const [prompt, setPrompt] = useState("Hello");
     const [voices, setVoices] = useState([]);
     const [activeVoice, setActiveVoice] = useState(null);
+    const [pitch, setPitch] = useState(1);
+    const [rate, setRate] = useState(1);
+    const [volume, setVolume] = useState(1);
     const navigation = useNavigation();
     
     const getvoices = async () => {
@@ -22,10 +26,11 @@ const Settings = () => {
     };
 
     const speak = () => {
-        Speech.speak(prompt,{language:activeVoice});
+        Speech.speak(prompt,{language:activeVoice,pitch:pitch,rate:rate});
       };
       getvoices();
       return (
+        <>
         <SafeAreaView>
         <View style={tw`bg-black h-full`}>
         <View>
@@ -35,9 +40,10 @@ const Settings = () => {
                 <Icon name="menu" type="material-community" color="#000" size={30} />
             </TouchableOpacity>
         </View>
+        <Text style={tw`text-white text-center mt-40`}>Choose the language/Accent of voice</Text>
         <SearchableDropdown
             onItemSelect={(item) => setActiveVoice(item.name)}
-            containerStyle={{ padding: 5 ,marginTop:150}}
+            containerStyle={{ padding: 5 ,marginTop:20}}
             itemStyle={{
               padding: 10,
               marginTop: 2,
@@ -71,15 +77,39 @@ const Settings = () => {
               }
             }
         />
+        <Text style={tw`text-white text-center mt-2`}>Choose the pitch of the voice</Text>
+        <Text style={tw`text-white text-center`}>{pitch}</Text>
+        <Slider
+            style={{width: 400, height: 40,marginTop:30 ,backgroundColor:'#fff'}}
+            minimumValue={1}
+            maximumValue={10}
+            minimumTrackTintColor="#333333"
+            maximumTrackTintColor="#0d0d0d"
+            onValueChange={value => setPitch(value)}
+            step={1}
+          />
+
+        <Text style={tw`text-white text-center mt-2`}>Choose the rate of the voice</Text>
+        <Text style={tw`text-white text-center`}>{rate}</Text>
+        <Slider
+            style={{width: 400, height: 40,marginTop:30 ,backgroundColor:'#fff'}}
+            minimumValue={0}
+            maximumValue={2}
+            minimumTrackTintColor="#333333"
+            maximumTrackTintColor="#0d0d0d"
+            onValueChange={value => setRate(value)}
+            step={0.1}
+          />
       <TextInput
         onChangeText={(text) => setPrompt(text)}
         value={prompt}
-        placeholder="useless placeholder"
-        style={tw`bg-gray-100 shadow-lg`}
+        style={tw`bg-gray-100 shadow-lg mt-10`}
       />
-      <Button title="Speak" onPress={speak} />
+      
+      <Button title="Speak" onPress={speak}/>
         </View>
         </SafeAreaView>
+        </>
       );
 }
 

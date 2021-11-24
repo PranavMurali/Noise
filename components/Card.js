@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import {Text, View} from 'react-native';
+import {Text, View ,Button} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import * as Location from 'expo-location';
 import NetInfo from '@react-native-community/netinfo';
 
 const Card = () => {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [type, setType] = useState(null);
   const [ipAdress, setIpAdress] = useState(null);
+  const [country, setCountry] = useState("Waiting...");
+  const [region, setRegion] = useState("Waiting...");
+  const [city, setCity] = useState("Waiting...");
+
+  const [latitude, setLatitude] = useState("Waiting...");
+  const [longitude, setLongitude] = useState("Waiting...");
+  const [adv, setAdv] = useState(0);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -39,25 +44,31 @@ const Card = () => {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
+      setLatitude(JSON.stringify(location.coords.latitude));
+      setLongitude(JSON.stringify(location.coords.longitude));
+      let revLocation = await Location.reverseGeocodeAsync({latitude: location.coords.latitude, longitude: location.coords.longitude});
+      setCity(revLocation[0].city);
+      setRegion(revLocation[0].region);
+      setCountry(revLocation[0].country);
     })();
   }, []);
-
-  let lats = 'Waiting..';
-  let longs = 'Waiting..';
-  if (errorMsg) {
-    lats= errorMsg;
-    longs =errorMsg;
-  } else if (location) {
-    lats = JSON.stringify(location.coords.latitude);
-    longs = JSON.stringify(location.coords.longitude);
-  }
 
   return (
     <>
     <View style={tw`p-2 pl-20 pb-8 pt-4 bg-gray-600 m-2 max-w-md rounded-lg`}>
-      <Text style={tw`font-bold text-white`}>Latitude: {lats}</Text>
-      <Text style={tw`font-bold text-white`}>Longitude: {longs}</Text>  
+    <Text style={tw`font-bold text-white`}>City: {city}</Text>
+    <Text style={tw`font-bold text-white`}>State: {region}</Text>
+    <Text style={tw`font-bold text-white`}>Country: {country}</Text>
+    { adv === 1 ? 
+      <Button title="Basic" onPress={() => setAdv(0)}/>
+      :
+      <Button title="Advanced" onPress={() => setAdv(1)}/>
+    }
+    {adv === 1 ? (
+      <>
+      <Text style={tw`font-bold text-white`}>Latitude: {latitude}</Text>
+      <Text style={tw`font-bold text-white`}>longitude: {longitude}</Text>
+      </>):null}
     </View>
     <View style={tw`p-2 pl-20 pb-8 pt-4 bg-gray-600 m-2 max-w-md rounded-lg`}>
       <Text style={tw`font-bold text-white`}>{type}</Text>
