@@ -6,15 +6,35 @@ import { View, Button, TouchableOpacity,SafeAreaView, TextInput,Text} from 'reac
 import Slider from '@react-native-community/slider';
 import * as Speech from 'expo-speech';
 import SearchableDropdown from 'react-native-searchable-dropdown';
+import { useStateValue } from "../StateProvider";
 
 const Settings = () => {
     const [prompt, setPrompt] = useState("Hello");
     const [voices, setVoices] = useState([]);
-    const [activeVoice, setActiveVoice] = useState(null);
+    const [activeVoice, setActiveVoice] = useState("en-US");
     const [pitch, setPitch] = useState(1);
     const [rate, setRate] = useState(1);
     const navigation = useNavigation();
-    
+    const [{voice,pitchs,rates},dispatch] = useStateValue();
+  
+    useEffect(() => {
+      dispatch({
+        type: "SET_VOICE",
+        payload: activeVoice,
+    })}, [activeVoice]);
+
+    useEffect(() => {
+      dispatch({
+        type: "SET_PITCH",
+        payload: pitch,
+    })}, [pitch]);
+
+    useEffect(() => {
+    dispatch({
+      type: "SET_RATE",
+      payload: rate,
+    })}, [rate]);
+
     useEffect(() => {
       (async () => {
         try {
@@ -27,7 +47,7 @@ const Settings = () => {
   }, []);
 
     const speak = () => {
-        Speech.speak(prompt,{language:activeVoice,pitch:pitch,rate:rate});
+        Speech.speak(prompt,{language:voice,pitch:pitchs,rate:rates});
       };
       return (
         <>
@@ -56,7 +76,7 @@ const Settings = () => {
             itemTextStyle={{ color: '#222' }}
             itemsContainerStyle={{ maxHeight: 140}}
             placeholderTextColor="#fff"
-            items={voices.map(item=> ({id:item.identifier,name:item.language}))}
+            items={voices.map(item=> ({id:item.identifier,name:item.language+"("+item.quality+")"}))}
             resetValue={false}
             textInputProps={
               {
@@ -79,35 +99,40 @@ const Settings = () => {
             }
         />
         <Text style={tw`text-white text-center mt-2`}>Pitch of the voice</Text>
-        <Text style={tw`text-white text-center`}>{pitch}</Text>
+        <Text style={tw`text-white text-center`}>{pitchs}</Text>
         <Slider
-            style={{width: 400, height: 40,marginTop:30 ,backgroundColor:'#fff'}}
+            style={tw` self-center w-11/12 p-2 bg-black h-10 mt-4 shadow-lg`}
             minimumValue={1}
             maximumValue={3}
-            minimumTrackTintColor="#333333"
-            maximumTrackTintColor="#0d0d0d"
+            minimumTrackTintColor="#00FFFF"
+            maximumTrackTintColor="#008080"
             onValueChange={value => setPitch(value)}
             step={0.1}
           />
 
         <Text style={tw`text-white text-center mt-2`}>Rate of the voice</Text>
-        <Text style={tw`text-white text-center`}>{rate}</Text>
+        <Text style={tw`text-white text-center`}>{rates}</Text>
         <Slider
-            style={{width: 400, height: 40,marginTop:30 ,backgroundColor:'#fff'}}
+            style={tw` self-center w-11/12 p-2 bg-black h-10 mt-4 shadow-lg`}
             minimumValue={1}
             maximumValue={2}
-            minimumTrackTintColor="#333333"
-            maximumTrackTintColor="#0d0d0d"
+            minimumTrackTintColor="#00FFFF"
+            maximumTrackTintColor="#008080"
             onValueChange={value => setRate(value)}
             step={0.1}
           />
       <TextInput
         onChangeText={(text) => setPrompt(text)}
         value={prompt}
-        style={tw`bg-gray-100 shadow-lg mt-10`}
+        style={tw` self-center w-11/12 p-2 bg-black border-gray-50 h-10 mt-4 shadow-lg text-white border`}
       />
-      
-      <Button title="Speak" onPress={speak}/>
+      <View style={tw`self-center w-9/12`}>
+      <TouchableOpacity
+      onPress={() => speak()}
+      style={tw`p-2 bg-gray-800 h-10 mt-4 shadow-lg rounded`}>
+        <Text style={tw`font-bold text-white text-center`}>Test</Text>
+      </TouchableOpacity>
+      </View>
         </View>
         </SafeAreaView>
         </>

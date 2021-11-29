@@ -1,9 +1,8 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
-import {Provider} from 'react-redux';
 import Homescreen from './screens/Homescreen';
 import CamerScreen from './screens/CamerScreen';
-import {store} from './store';
+import {StateProvider} from "./StateProvider"
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,11 +11,12 @@ const Stack = createNativeStackNavigator();
 import tw from "tailwind-react-native-classnames"
 import Settings from './screens/Settings';
 import { useKeepAwake } from 'expo-keep-awake';
+import reducer, { initialState } from './reducer/reducer';
 
 export default function App() {
   useKeepAwake();
   return (
-    <Provider store={store}>
+    <StateProvider initialState={initialState} reducer={reducer}>
       <NavigationContainer>
         <SafeAreaProvider>
           <KeyboardAvoidingView 
@@ -50,7 +50,7 @@ export default function App() {
           </KeyboardAvoidingView>
         </SafeAreaProvider>
       </NavigationContainer>
-    </Provider>
+    </StateProvider>
   );
 }
 

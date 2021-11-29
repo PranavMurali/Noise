@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import {Text, View ,TouchableOpacity} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import * as Location from 'expo-location';
 import NetInfo from '@react-native-community/netinfo';
+import { useStateValue } from "../StateProvider";
 
 const Card = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -15,6 +16,9 @@ const Card = () => {
   const [latitude, setLatitude] = useState("Waiting...");
   const [longitude, setLongitude] = useState("Waiting...");
   const [adv, setAdv] = useState(0);
+
+  
+  const[{voice,pitchs,rates}]=useStateValue();
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -72,8 +76,8 @@ const Card = () => {
       :
       <TouchableOpacity
       onPress={() => setAdv(1)}
-      style={tw`p-2 bg-black w-9/12 h-10 mt-4 shadow-lg`}>
-        <Text style={tw`font-bold text-white text-center`}>Advanced</Text>
+      style={tw`p-2 bg-black w-9/12 h-10 mt-4 shadow-lg rounded`}>
+        <Text style={tw`font-bold text-white text-center `}>Advanced</Text>
       </TouchableOpacity>
     }
     </View>
@@ -81,6 +85,12 @@ const Card = () => {
       <Text style={tw`font-bold text-white text-left`}>{type}</Text>
       <Text style={tw`font-bold text-white text-left`}>{isConnected}</Text>
       <Text style={tw`font-bold text-white text-left`}>{ipAdress}</Text>
+    </View>
+
+    <View style={tw`p-2 pl-5 pb-8 pt-4 bg-gray-700 m-2 max-w-md rounded-lg`}>
+      <Text style={tw`font-bold text-white text-left`}>Voice: {voice}</Text>
+      <Text style={tw`font-bold text-white text-left`}>Pitch: {pitchs}</Text>
+      <Text style={tw`font-bold text-white text-left`}>Rate: {rates}</Text>
     </View>
     </>
   );

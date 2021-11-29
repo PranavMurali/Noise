@@ -27,4 +27,3 @@ const Homescreen = () => {
 
 export default Homescreen
 
-const styles = StyleSheet.create({})
