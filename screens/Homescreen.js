@@ -14,6 +14,7 @@ const Homescreen = () => {
                         width: 100,
                         height: 100,
                         resizeMode:"contain",
+                        
                     }}
                     source={require('../imgs/logo.png')} 
                     />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Text, View ,Button} from 'react-native';
+import {Text, View ,TouchableOpacity} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 import * as Location from 'expo-location';
 import NetInfo from '@react-native-community/netinfo';
@@ -55,25 +55,32 @@ const Card = () => {
 
   return (
     <>
-    <View style={tw`p-2 pl-20 pb-8 pt-4 bg-gray-600 m-2 max-w-md rounded-lg`}>
-    <Text style={tw`font-bold text-white`}>City: {city}</Text>
-    <Text style={tw`font-bold text-white`}>State: {region}</Text>
-    <Text style={tw`font-bold text-white`}>Country: {country}</Text>
+    <View style={tw`p-2 pl-5 pb-8 pt-4 bg-gray-700 m-2 max-w-md rounded-lg`}>
+    <Text style={tw`font-bold text-white text-left`}>City: {city}</Text>
+    <Text style={tw`font-bold text-white text-left`}>State: {region}</Text>
+    <Text style={tw`font-bold text-white text-left`}>Country: {country}</Text>
     { adv === 1 ? 
-      <Button title="Basic" onPress={() => setAdv(0)}/>
-      :
-      <Button title="Advanced" onPress={() => setAdv(1)}/>
-    }
-    {adv === 1 ? (
       <>
-      <Text style={tw`font-bold text-white`}>Latitude: {latitude}</Text>
-      <Text style={tw`font-bold text-white`}>longitude: {longitude}</Text>
-      </>):null}
+       <TouchableOpacity
+      onPress={() => setAdv(0)}
+      style={tw`p-2 bg-black w-9/12 h-10 mt-4 shadow-lg`}>
+      <Text style={tw`font-bold text-white text-center`}>Basic</Text>
+      </TouchableOpacity>
+      <Text style={tw`font-bold text-white text-left`}>Latitude: {latitude}</Text>
+      <Text style={tw`font-bold text-white text-left`}>longitude: {longitude}</Text>
+      </>
+      :
+      <TouchableOpacity
+      onPress={() => setAdv(1)}
+      style={tw`p-2 bg-black w-9/12 h-10 mt-4 shadow-lg`}>
+        <Text style={tw`font-bold text-white text-center`}>Advanced</Text>
+      </TouchableOpacity>
+    }
     </View>
-    <View style={tw`p-2 pl-20 pb-8 pt-4 bg-gray-600 m-2 max-w-md rounded-lg`}>
-      <Text style={tw`font-bold text-white`}>{type}</Text>
-      <Text style={tw`font-bold text-white`}>{isConnected}</Text>
-      <Text style={tw`font-bold text-white`}>{ipAdress}</Text>
+    <View style={tw`p-2 pl-5 pb-8 pt-4 bg-gray-700 m-2 max-w-md rounded-lg`}>
+      <Text style={tw`font-bold text-white text-left`}>{type}</Text>
+      <Text style={tw`font-bold text-white text-left`}>{isConnected}</Text>
+      <Text style={tw`font-bold text-white text-left`}>{ipAdress}</Text>
     </View>
     </>
   );

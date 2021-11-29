@@ -1,7 +1,7 @@
 import tw from 'tailwind-react-native-classnames';
 import { Icon } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Button, TouchableOpacity,SafeAreaView, TextInput,Text} from 'react-native';
 import Slider from '@react-native-community/slider';
 import * as Speech from 'expo-speech';
@@ -15,19 +15,20 @@ const Settings = () => {
     const [rate, setRate] = useState(1);
     const navigation = useNavigation();
     
-    const getvoices = async () => {
-      try {
-        let response =await Speech.getAvailableVoicesAsync();
-        setVoices(response);
-      } catch (error) {
-        console.log("Oh nuu" ,error);
-      } 
-    };
+    useEffect(() => {
+      (async () => {
+        try {
+          let response =await Speech.getAvailableVoicesAsync();
+          setVoices(response);
+        } catch (error) {
+          console.log("Oh nuu" ,error);
+        } 
+      })();
+  }, []);
 
     const speak = () => {
         Speech.speak(prompt,{language:activeVoice,pitch:pitch,rate:rate});
       };
-      getvoices();
       return (
         <>
         <SafeAreaView>
