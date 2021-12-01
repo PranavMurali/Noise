@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "asl_app-expo",
-    "slug": "asl_app-expo",
+    "name": "ASL-App",
+    "slug": "ASL-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "description": "Built to translate american sign language into audio, to ease communication between those with disabilties and those without.",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,12 +22,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.asl.app"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     }
   }
 }
