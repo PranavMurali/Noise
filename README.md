@@ -1,7 +1,12 @@
 # ASL App
 
-#### The art style and coveted art pieces of the past can only be bought , sold and displayed once , but new pieces by the same artist can no longer be obtained, through the power of GANs we can generate and create new art pieces in the styles of the artists that we desire, either living or dead. Style transfer can be used to change any image of choice into an art piece using the power of GANs, One input reference image and another target image to have the style transferred on to it.
+#### An application built to translate american sign language into audio, to ease communication between those with disabilties and those without, using a GAN model made in tensorflow , (Note: Currently running MobileNet model). The custom model is yet to be loaded.   
 
+
+#### The app uses Expo utiliies like expo-speech and expo-camera. It is styled using Tailwind CSS.
 ### In-App Screenshots
-![alt](../main/Readme/Home.jpeg)
-
+<p float="left">
+<img src="../master/Readme/Home.jpeg" alt="drawing" width="200"/>
+<img src="../master/Readme/Settings.png" alt="drawing" width="200"/>
+<img src="../master/Readme/Model Screen.jpeg" alt="drawing" width="200"/>
+</p>
