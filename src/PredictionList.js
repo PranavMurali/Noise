@@ -1,7 +1,19 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View ,TouchableOpacity} from "react-native";
+import * as Speech from 'expo-speech';
+import { useStateValue } from "../StateProvider";
+import tw from 'tailwind-react-native-classnames';
 
 export function PredictionList({ predictions = [] }) {
+  const [{voice,pitchs,rates}] = useStateValue();
+  // useEffect(() => {
+  //   setTimeout(()=>{
+  //     if (predictions.length > 0) {
+  //       Speech.speak(predictions[0].className,{language:voice,pitch:pitchs,rate:rates});
+  //     }
+  //    }, 5000)
+    
+  // }, [predictions]);
   return (
     <View style={styles.container}>
       {predictions.map((p, i) => (
@@ -9,6 +21,11 @@ export function PredictionList({ predictions = [] }) {
           {p.className}
         </Text>
       ))}
+       <TouchableOpacity
+        onPress={() =>Speech.speak(predictions[0].className,{language:voice,pitch:pitchs,rate:rates})}
+        style={tw`p-2 bg-gray-800 h-10 w-9/12 mt-4 shadow-lg rounded`}>
+          <Text style={tw`font-bold text-white text-center`}>Speak</Text>
+        </TouchableOpacity>
     </View>
   );
 }

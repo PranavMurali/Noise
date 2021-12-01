@@ -2,7 +2,7 @@ import tw from 'tailwind-react-native-classnames';
 import { Icon } from 'react-native-elements';
 import { useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
-import { View, Button, TouchableOpacity,SafeAreaView, TextInput,Text} from 'react-native';
+import { View,TouchableOpacity,SafeAreaView, TextInput,Text} from 'react-native';
 import Slider from '@react-native-community/slider';
 import * as Speech from 'expo-speech';
 import SearchableDropdown from 'react-native-searchable-dropdown';
