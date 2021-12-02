@@ -3,19 +3,22 @@ import React from 'react'
 import { FlatList, Text, TouchableOpacity, View ,Image} from 'react-native'
 import { Icon } from 'react-native-elements';
 import tw from 'tailwind-react-native-classnames'
+import settings from "../assets/settings.png"
+import home from "../assets/speak.png"
 
-
+const SETTING = Image.resolveAssetSource(settings).uri;
+const SPEAK = Image.resolveAssetSource(home).uri;
 const data=[
     {
         id:"1",
         title:"Home",
-        image:"https://i.imgur.com/2kr3TIL.jpeg",
+        image:SPEAK,
         screen:"Camera",
     },
     {
         id:"2",
         title:"Settings",
-        image:"https://i.imgur.com/2kr3TIL.jpeg",
+        image:SETTING,
         screen:"Settings",
     }
 ]
@@ -33,9 +36,7 @@ const NavOptions = () => {
             style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-700 m-2 w-40 rounded-lg`}>
                 <View>
                     <Image 
-                    source={{
-                        uri:item.image
-                    }}
+                    source={{uri: item.image}} 
                     style={{width: 120, height:120, resizeMode:"contain"}}/>
                     <Text style={tw`mt-2 text-lg font-semibold text-white`}>{item.title}</Text>
                     <Icon 

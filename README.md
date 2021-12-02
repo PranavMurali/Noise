@@ -5,7 +5,7 @@
 #### The app uses Expo utilities like expo-speech and expo-camera. It is styled using Tailwind CSS.
 ### In-App Screenshots
 <p float="left">
-<img src="../master/Readme/Home.jpeg" alt="drawing" width="200"/>
+<img src="../master/Readme/Home.jpg" alt="drawing" width="200"/>
 <img src="../master/Readme/Settings.png" alt="drawing" width="200"/>
 <img src="../master/Readme/Model Screen.jpeg" alt="drawing" width="200"/>
 </p>
