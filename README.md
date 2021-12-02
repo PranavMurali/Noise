@@ -1,9 +1,8 @@
 # ASL App
 
-#### An application built to translate american sign language into audio, to ease communication between those with disabilties and those without, using a GAN model made in tensorflow , (Note: Currently running MobileNet model). The custom model is yet to be loaded.   
+#### An application built to translate American sign language into audio, to ease communication between those with disabilities and those without, using a GAN model made in Tensorflow , (Note: Currently running MobileNet model). The custom model is yet to be loaded.
 
-
-#### The app uses Expo utiliies like expo-speech and expo-camera. It is styled using Tailwind CSS.
+#### The app uses Expo utilities like expo-speech and expo-camera. It is styled using Tailwind CSS.
 ### In-App Screenshots
 <p float="left">
 <img src="../master/Readme/Home.jpeg" alt="drawing" width="200"/>
