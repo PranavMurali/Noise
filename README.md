@@ -1,4 +1,4 @@
-# ASL App
+# Noise - An ASL Application
 
 #### An application built to translate American sign language into audio, to ease communication between those with disabilities and those without, using a GAN model made in Tensorflow , (Note: Currently running MobileNet model). The custom model is yet to be loaded.
 
